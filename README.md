@@ -15,8 +15,8 @@
 | Servidor | sistema_operacinal | varchar | 50 | Sistema Operacional do servidor |
 | Servidor | ambiente | varchar | 40 | Area em que o servidor é utilizado |
 | Conta de Acesso | id_conta | int | 11 | Identificador, PK, Auto incrementável |
-| Conta de Acesso | id_usuario | Inteiro | 11 | Identificador do usuário, FK referenciando Usuário (id)|
-| Conta de Acesso | id_servidor | Inteiro | 11 | Identificador do servidor, FK referenciando Servidor (id)|
+| Conta de Acesso | id_usuario | int | 11 | Identificador do usuário, FK referenciando Usuário (id)|
+| Conta de Acesso | id_servidor | int | 11 | Identificador do servidor, FK referenciando Servidor (id)|
 | Conta de Acesso | login | varchar | 50 | Login da conta de acesso |
 | Conta de Acesso | status | varchar | 20 | Status da conta de acesso |
 | Conta de Acesso | data_criacao | Date |  | Data de criação da conta de acesso |
