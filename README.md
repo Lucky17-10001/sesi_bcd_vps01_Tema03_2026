@@ -35,3 +35,6 @@
 | Acesso | data_inicio | date |  | Data de criação da autorização de acesso|
 | Acesso | data_fim | date |  | Data de expiração da autorização de acesso|
 | Acesso | status | varchar | 20 | Status da autorização de acesso |
+
+## Dados de teste em CSV
+
