@@ -38,3 +38,48 @@
 
 ## Dados de teste em CSV
 
+## Script SQL DDL (Desenvolvimanto: Criação do Banco de dados)
+```sql
+drop database if exists provisionamentos;
+create database provisionamentos;
+use provisionamentos;
+create table usuario(
+    id int not null primary key auto_increment,
+    nome varchar(100) not null,
+    email varchar(20) not null,
+    cargo varchar(50) not null,
+    departamento varchar(100) not null,
+    status varchar(100) not null
+);
+create table servidor(
+    id int not null primary key auto_increment,
+    id_cliente int not null,
+    numero varchar(100) not null unique,
+    tipo enum('Residencial', 'Comercial', 'Celular') not null
+);
+create table conta_acesso(
+    id int not null primary key auto_increment,
+    nome varchar(100) not null,
+    cep varchar(11) not null,
+    numero varchar(10),
+    complemento varchar(100)
+);
+create table pedido(
+    id int not null primary key auto_increment,
+    id_cliente int not null,
+    id_produto int not null,
+    quantidade int not null,
+    valor_unitario decimal(10,2) not null,
+    subtotal decimal(10,2) default (valor_unitario * quantidade)
+);
+
+alter table telefone add constraint fk_telefones foreign key (id_cliente) references cliente(id);
+alter table pedido add constraint fk_faz foreign key (id_cliente) references cliente(id);
+alter table pedido add constraint fk_possui foreign key (id_produto) references produto(id);
+
+describe produto;
+describe telefone;
+describe cliente;
+describe pedido;
+show tables;
+```
