@@ -46,46 +46,92 @@
 
 ## Script SQL DDL (Desenvolvimanto: Criação do Banco de dados)
 ```sql
-drop database if exists provisionamentos;
-create database provisionamentos;
-use provisionamentos;
+drop database if exists provisionamento_de_acessos;
+create database provisionamento_de_acessos;
+use provisionamento_de_acessos;
 create table usuario(
     id int not null primary key auto_increment,
     nome varchar(100) not null,
-    email varchar(20) not null,
+    email varchar(20) not null unique,
     cargo varchar(50) not null,
     departamento varchar(100) not null,
-    status varchar(100) not null
+    estado varchar(20) not null
 );
 create table servidor(
     id int not null primary key auto_increment,
-    id_cliente int not null,
-    numero varchar(100) not null unique,
-    tipo enum('Residencial', 'Comercial', 'Celular') not null
-);
-create table conta_acesso(
-    id int not null primary key auto_increment,
     nome varchar(100) not null,
-    cep varchar(11) not null,
-    numero varchar(10),
-    complemento varchar(100)
+    hostname varchar(100) not null,
+    ip varchar(15) not null,
+    sistema_operacional varchar(50) not null,
+    ambiente varchar(40) not null
 );
-create table pedido(
-    id int not null primary key auto_increment,
-    id_cliente int not null,
-    id_produto int not null,
-    quantidade int not null,
-    valor_unitario decimal(10,2) not null,
-    subtotal decimal(10,2) default (valor_unitario * quantidade)
+create table perfil(
+    id_perfil int not null primary key auto_increment,
+    nome varchar(100) not null,
+    descricao varchar(200) not null,
+    nivel_acesso varchar(10) not null
+);
+create table contadeacesso(
+    id_conta int not null primary key auto_increment,
+    id_usuario int not null,
+    id_servidor int not null,
+    login_conta varchar(50) not null,
+    estado varchar(20) not null,
+    data_criacao date not null,
+    data_expiracao date not null
+);
+create table acesso(
+    id_acesso int not null primary key auto_increment,
+    id_conta int not null,
+    id_perfil int not null,
+    data_inicio date not null,
+    data_fim date not null,
+    estado varchar(20) not null
 );
 
-alter table telefone add constraint fk_telefones foreign key (id_cliente) references cliente(id);
-alter table pedido add constraint fk_faz foreign key (id_cliente) references cliente(id);
-alter table pedido add constraint fk_possui foreign key (id_produto) references produto(id);
+alter table contadeacesso add constraint fk_contas foreign key (id_usuario) references usuario(id);
+alter table contadeacesso add constraint fk_servidores foreign key (id_servidor) references servidor(id);
+alter table acesso add constraint fk_acessos foreign key (id_conta) references contadeacesso(id_conta);
+alter table acesso add constraint fk_perfis foreign key (id_perfil) references perfil(id_perfil);
 
-describe produto;
-describe telefone;
-describe cliente;
-describe pedido;
+describe usuario;
+describe servidor;
+describe perfil;
+describe contadeacesso;
+describe acesso;
 show tables;
+```
+## Script SQL DML(Manipulação: População com dados de teste)
+```sql
+use provisionamento_de_acessos;
+insert into usuario(nome, email, cargo, departamento, estado) values
+("Ana Maria Silva","ana.silva@gmail.com","Analista","TI","Ativo"),
+("Valentina Oliveira","valentina.oliveira@gmail.com","Desenvolvedora","TI","Ativo"),
+("Enzo Martins","enzo.martins@gmail.com","Gerente","RH","Ativo");
+
+insert into servidor(nome, hostname, ip, sistema_operacional, ambiente) values
+("Servidor 1","srv01.example.com","192.168.1.10","Ubuntu 20.04","Produção"),
+("Servidor 2","srv02.example.com","192.168.1.11","CentOS 7","Produção"),
+("Servidor 3","srv03.example.com","192.168.1.12","Windows Server 2019","Produção");
+
+insert into perfil(nome, descricao, nivel_acesso) values
+("Administrador","Acesso completo ao sistema","Alto"),
+("Usuário Comum","Acesso limitado às funcionalidades básicas","Médio"),
+("Visitante","Acesso somente para visualização","Baixo");
+
+insert into contadeacesso(id_usuario, id_servidor, login_conta, estado, data_criacao, data_expiracao) values
+(1,1,"ana.silva","Ativo","2023-01-01","2023-12-31"),
+(2,2,"valentina.oliveira","Ativo","2023-01-01","2023-12-31"),
+(3,3,"enzo.martins","Ativo","2023-01-01","2023-12-31");
+
+insert into acesso(id_conta, id_perfil, data_inicio, data_fim, estado) values
+(1,1,"2023-01-01","2023-12-31","Ativo"),
+(2,2,"2023-01-01","2023-12-31","Ativo"),
+(3,3,"2023-01-01","2023-12-31","Ativo");
+
+select * from usuario;
+select * from servidor;
+select * from perfil;
+select * from contadeacesso;
+select * from acesso;
 ```
