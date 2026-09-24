@@ -1,0 +1,4 @@
+﻿id_perfil,nome,descricao,nivel acesso
+1,Alice Silva,possui acesso total ao sistema,Administrador
+2,Bruno Santos,possui permissão de escrita e modificação,Operador
+3,Carla Souza,possui acesso apenas de leitura,Auditor

@@ -1,0 +1,4 @@
+﻿id,nome,hostname,ip,sistema_operacional,ambiente
+1,DB-PROD-SQL-01,SRV-APP-PROD-01,192.168.1.50,AetherOS,Desenvolvimento
+2,ATLAS-DB,HERA-NODE,10.0.0.15,Zenith Linux,Produção
+3,NEXUS-DATA,ORION-CORE,172.16.254.10,Synthetix OS,Testes
