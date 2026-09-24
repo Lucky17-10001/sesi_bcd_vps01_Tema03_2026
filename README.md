@@ -38,6 +38,12 @@
 
 ## Dados de teste em CSV
 
+- [usuario.csv](./usuario.csv)
+- [servidor.csv](./servidor.csv)
+- [perfil.csv](./perfil.csv)
+- [contadeacesso.csv](./contadeacesso.csv)
+- [acesso.csv](./acesso.csv)
+
 ## Script SQL DDL (Desenvolvimanto: Criação do Banco de dados)
 ```sql
 drop database if exists provisionamentos;
